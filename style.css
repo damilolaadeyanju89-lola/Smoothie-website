@@ -1,38 +1,61 @@
 @media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
     header .navbar {
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background: #eee;
+        background: #fff;
         border-top: .1rem solid rgba(0,0,0,.1);
         clip-path: polygon(0 0, 100% 0, 100% 0,0 0);
         max-height: 0;
         overflow: hidden;
         opacity: 0;
         transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), clip-path 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,.1);
+        flex-direction: column;
+        gap: 0;
     }
+    
     #toggler:checked ~ .navbar {
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
         max-height: 500px;
         opacity: 1;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.15);
     }
+    
     header .navbar a {
         opacity: 0;
         transform: translateY(-10px);
         transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4,0,0.2,1);
-        margin: 1.5rem;
-        padding: 1.5rem;
-        background: #fff;
-        border: .1rem solid rgba(0,0,0,.1);
+        margin: 0;
+        padding: 2rem;
+        background: transparent;
+        border: none;
+        border-bottom: .1rem solid rgba(0,0,0,.05);
         display: block;
+        font-size: 1.8rem;
+        width: 100%;
+        text-align: left;
     }
+
+    header .navbar a::after{
+        display: none;
+    }
+    
     #toggler:checked ~ .navbar a {
         opacity: 1;
         transform: translateY(0);
-        transition-delay: 0.2s;
+        transition-delay: 0.1s;
     }
+
+    #toggler:checked ~ .navbar a:nth-child(1) { transition-delay: 0.1s; }
+    #toggler:checked ~ .navbar a:nth-child(2) { transition-delay: 0.2s; }
+    #toggler:checked ~ .navbar a:nth-child(3) { transition-delay: 0.3s; }
+    #toggler:checked ~ .navbar a:nth-child(4) { transition-delay: 0.4s; }
+    #toggler:checked ~ .navbar a:nth-child(5) { transition-delay: 0.5s; }
 }
 
 #toggler + .hamburger span {
@@ -50,22 +73,18 @@
     z-index: 1101;
     background: none;
     border: none;
+    padding: 0.5rem;
+    flex-shrink: 0;
 }
 
 .hamburger span {
     display: block;
     width: 2.5rem;
     height: 0.3rem;
-    margin: 0.3rem 0;
+    margin: 0.35rem 0;
     background: #333;
     border-radius: 2px;
     transition: 0.4s;
-}
-
-@media (max-width: 768px) {
-    .hamburger {
-        display: flex;
-    }
 }
 
 #toggler:checked + .hamburger span:nth-child(1) {
@@ -78,28 +97,9 @@
     transform: rotate(-45deg) translate(6px, -6px);
 }
 
-@media (max-width: 768px) {
-    header .navbar {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: #eee;
-        border-top: .1rem solid rgba(0,0,0,.1);
-        clip-path: polygon(0 0, 100% 0, 100% 0,0 0);
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), clip-path 0.4s cubic-bezier(0.4,0,0.2,1);
-    }
-
-    #toggler:checked ~ .navbar {
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-        max-height: 500px;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-    }
-}
 :root{
     --pink: #e84393;
+    --pink-rgb: 232, 67, 147;
 }
 
 *{
@@ -110,17 +110,26 @@
     text-decoration: none;
     text-transform: capitalize;
     transition: .2s linear;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html{
     font-size: 62.5%;
     scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
+    scroll-padding-top: 7rem;
+    overflow-x: hidden;
+}
+
+body{
     overflow-x: hidden;
 }
 
 section{
     padding:2rem 9%;
+}
+
+.products{
+    background: #ffe8f3;
 }
 
 .heading{
@@ -129,7 +138,7 @@ section{
     color: #333;
     padding:1rem;
     margin:2rem 0;
-    background: rgba(255,51,153,.05);
+    background: rgba(var(--pink-rgb), .05);
 }
 
 .heading span{
@@ -138,52 +147,121 @@ section{
 
 .btn{
     display: inline-block;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     border-radius: 5rem;
-    background: #333;
+    background: #222;
     color: #fff;
-    padding: 0.9rem 3.5rem;
+    padding: 1.4rem 4.5rem;
     cursor: pointer;
-    font-size: 1.7rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0.8rem 2rem rgba(0,0,0,.15);
+    transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 44px;
 }
 
 .btn:hover{
     background:var(--pink);
+    transform: translateY(-3px);
+    box-shadow: 0 1.2rem 2.5rem rgba(var(--pink-rgb), .3);
+}
+
+.btn:active{
+    transform: translateY(-1px);
 }
 
 header{
     position: fixed;
     top:0; left:0; right:0;
     background: #fff;
-    padding:2rem 9%;
+    padding:2.5rem 9%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     z-index: 1000;
-    box-shadow: 0.5rem 1rem rgba(0,0,0,.1);
+    box-shadow: 0 0.2rem 1.5rem rgba(0,0,0,.08);
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    flex-wrap: nowrap;
+    gap: 2rem;
 }
 
 header .logo{
-    font-size: 3rem;
-    color: #333;
-    font-weight: bolder;
+    font-size: 2.8rem;
+    color: var(--pink);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+header .logo:hover{
+    transform: translateY(-2px);
 }
 
 header  .logo span{
     color: var(--pink);
 }
 
-header .navbar a{
-    font-size: 2rem;
-    padding: 0 1.5rem;
-    color: #666;
+header .navbar{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
+header .navbar a{
+    font-size: 1.6rem;
+    padding: 0 2rem;
+    color: #555;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+header .navbar a::after{
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--pink);
+    transition: width 0.3s ease;
+}
 
 header .navbar a:hover{
-    color:var(--pink);
+    color: var(--pink);
 }
 
+header .navbar a:hover::after{
+    width: 40%;
+}
+
+header .icons{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+header .icons a{
+    font-size: 2rem;
+    color: #555;
+    transition: all 0.3s ease;
+}
+
+header .icons a:hover{
+    color: var(--pink);
+    transform: translateY(-3px);
+}
 
 header #toggler{
     display:none;
@@ -200,20 +278,36 @@ header #toggler{
 }
 
 .home .content{
-    max-width: 50rem;
+    max-width: 60rem;
+    padding: 2rem;
 }
 
 .home .content h3{
-    font-size: 6rem;
-    color:#333; 
+    font-size: 6.5rem;
+    color:#222;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: -2px;
 }
 
-
 .home .content span{
-    font-size: 3.5rem;
+    font-size: 2.4rem;
     color:var(--pink);
     padding:1rem 0;
-    line-height: 1.5;
+    line-height: 1.6;
+    display: block;
+    font-weight: 500;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+}
+
+.home .content p{
+    font-size: 1.6rem;
+    color: #666;
+    padding: 2rem 0;
+    line-height: 1.8;
+    font-weight: 400;
 }
 
 .about .row{
@@ -252,6 +346,7 @@ header #toggler{
 
 .about .row .content{
     flex:1 1 40rem;
+    text-align: center;
 }
 
 .about .row .content h3{
@@ -267,189 +362,256 @@ header #toggler{
     line-height: 1.5;
 }
 
+.about .row .content .btn{
+    background: var(--pink);
+}
+
 .icons-container{
-    background: #eee;
-    display: flex;
-    flex-wrap: wrap;
-    gap:1.5rem;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    background: #fff;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 2rem;
+    padding: 4rem 9%;
 }
 
 .icons-container .icons{
     background: #fff;
-    border:.1rem solid rgba(0,0,0,.1);
-    padding:2rem;
+    border: .2rem solid rgba(232, 67, 147, 0.1);
+    padding: 2.5rem;
     display: flex;
     align-items: center;
     flex: 1 1 25rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05);
+    transition: all 0.3s ease;
+}
+
+.icons-container .icons:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 2rem rgba(232, 67, 147, 0.15);
+    border-color: var(--pink);
 }
 
 .icons-container .icons img{
-    height:5rem;
+    height: 5rem;
     margin-right: 2rem;
 }
 
 .icons-container .icons h3{
     color: #333;
     padding-bottom: .5rem;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
+    font-weight: 600;
 }
 
 .icons-container .icons span{
-    color: #555;
+    color: #666;
     font-size: 1.3rem;
 }
 
 .products .box-container{
-    display: flex;
-    flex-wrap: wrap;
-    gap:1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+    gap: 2.5rem;
 }
 
 .products .box-container .box{
-    flex:1 1 30rem;
-    box-shadow: 0.5rem 1.5rem rgba(0,0,0,.1);
-    border-radius: .5rem;
-    border:.1rem solid rgba(0,0,0,.1);
+    background: #fff;
+    border-radius: 1.2rem;
+    border: .1rem solid rgba(0,0,0,.06);
+    box-shadow: 0 1rem 2.5rem rgba(0,0,0,.08);
+    overflow: hidden;
     position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.products .box-container .box:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 1.6rem 3.2rem rgba(0,0,0,.12);
 }
 
 .products .box-container .box .discount{
     position: absolute;
-    top:1rem; left:1rem;
-    padding:.7rem 1rem;
-    font-size: 2rem;
-    color:var(--pink);
-    background:rgba(255,51,153,.05);
-    z-index: 1;
-    border-radius: .5rem;
+    top: 1.2rem;
+    left: 1.2rem;
+    padding: .6rem 1rem;
+    font-size: 1.3rem;
+    color: var(--pink);
+    background: rgba(var(--pink-rgb), .12);
+    z-index: 2;
+    border-radius: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .products .box-container .box .image{
     position: relative;
     text-align: center;
-    padding-top: 2rem;
-    overflow: hidden;
+    padding: 2rem 2rem 1rem;
+    background: #fafafa;
 }
 
 .products .box-container .box .image img{
-    height:25rem;
+    width: 100%;
+    height: 22rem;
+    object-fit: cover;
+    transition: transform 0.4s ease;
 }
 
 .products .box-container .box:hover .image img{
-    transform: scale(1.1);
+    transform: scale(1.06);
 }
 
-.products .box-container .box .image .icons{
-   position: absolute; 
-   bottom:-7rem; left:0; right:0;
-   display: flex;
+.products .box-container .box .image .icons,
+.products .box-container .box .image .icon{
+    position: static;
+    display: flex;
+    gap: .6rem;
+    margin-top: 0.4rem;
+    opacity: 1;
+    transform: none;
 }
 
-.products .box-container .box:hover .image .icons{
-    bottom: 0;
-}
-
-.products .box-container .box .image .icons a{
-    height: 5rem;
-    line-height: 5rem;
-    font-size: 2rem;
-    width:50%;
-    background:var(--pink);
+.products .box-container .box .image .icons a,
+.products .box-container .box .image .icon a{
+    flex: 1;
+    height: 3.8rem;
+    line-height: 3.8rem;
+    font-size: 1.4rem;
+    border-radius: 2.4rem;
+    background: var(--pink);
     color: #fff;
-}
-
-.products .box-container .box .image .icons .cart-btn{
-    border-left: .1rem solid #fff7;
-    border-right: .1rem solid #fff7;
-    width:100%;
-}
-
-.products .box-container .box .image .icons a:hover{
-    background: #333;
-}
-
-.products .box-container .box .content{
-    padding:2rem;
     text-align: center;
 }
 
+.products .box-container .box .image .icons .like-emoji,
+.products .box-container .box .image .icon .like-emoji{
+    border-radius: 2.4rem 0 0 2.4rem;
+}
+
+.products .box-container .box .image .icons .fa-share,
+.products .box-container .box .image .icon .fa-share{
+    border-radius: 0 2.4rem 2.4rem 0;
+}
+
+.products .box-container .box .image .icons .cart-btn,
+.products .box-container .box .image .icon .cart-btn{
+    flex: 1.6;
+    text-transform: capitalize;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    font-size: 1.15rem;
+    background: var(--pink);
+    padding: 0;
+    height: 3.8rem;
+    line-height: 3.8rem;
+    border-radius: 0;
+    transition: all 0.3s ease;
+}
+
+.products .box-container .box .image .icons .cart-btn:hover,
+.products .box-container .box .image .icon .cart-btn:hover{
+    background: #c7296a;
+    transform: scale(1.05);
+}
+
+.products .box-container .box .image .icons a:hover,
+.products .box-container .box .image .icon a:hover{
+    background: #c7296a;
+}
+
+.products .box-container .box .content{
+    padding: 1.6rem 2rem 2rem;
+    text-align: left;
+}
+
 .products .box-container .box .content h3{
-    font-size: 2.5rem;
-    color: #333;
+    font-size: 1.8rem;
+    color: #222;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
 }
 
 .products .box-container .box .content .price{
-    font-size: 2.5rem;
-    color:var(--pink);
-    font-weight: bolder;
-    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 2.2rem;
+    color: var(--pink);
+    font-weight: 700;
 }
 
 .products .box-container .box .content .price span{
     font-size: 1.5rem;
-    color:#999;
-    font-weight: lighter;
+    color: #aaa;
+    font-weight: 400;
     text-decoration: line-through;
 }
 
 .review .box-container{
-    display: flex;
-    flex-wrap: wrap;
-    gap:1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+    gap: 2rem;
 }
 
 .review .box-container .box{
-    flex:1 1 30rem;
-    box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.1);
-    border-radius: .5rem;
-    padding:3rem 2rem;
+    background: #fff;
+    box-shadow: 0 1rem 2.5rem rgba(0,0,0,.08);
+    border-radius: 1.2rem;
+    padding: 3rem 2.5rem 2.5rem;
     position: relative;
-    border: .1rem solid rgba(0,0,0,.1);
+    border: .1rem solid rgba(0,0,0,.06);
 }
 
 .review .box-container .box .fa-quote-right{
     position: absolute;
-    bottom:3rem; right:3rem;
-    font-size: 6rem;
-    color: #eee;
+    top: 2rem;
+    right: 2rem;
+    font-size: 4.5rem;
+    color: rgba(var(--pink-rgb), .15);
+}
+
+.review .box-container .box .stars{
+    display: flex;
+    gap: .3rem;
 }
 
 .review .box-container .box .stars i{
     color:var(--pink);
-    font-size: 2rem;
+    font-size: 1.6rem;
 }
 
 .review .box-container .box p{
-    color: #999;
+    color: #666;
     font-size: 1.5rem;
-    line-height: 1.5;
-    padding-top: 2rem;
+    line-height: 1.7;
+    padding: 1.6rem 0 2rem;
 }
 
 .review .box-container .box .user{
     display: flex;
     align-items: center;
-    padding-top: 2rem;
+    gap: 1.2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0,0,0,.06);
 }
 
 .review .box-container .box .user img{
-    height:6rem;
-    width:6rem;
+    height:5.2rem;
+    width:5.2rem;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 1rem;
 }
 
 .review .box-container .box .user h3{
-    font-size: 2rem;
-    color: #333;
+    font-size: 1.8rem;
+    color: #222;
+    margin-bottom: .2rem;
 }
 
 .review .box-container .box .user span{
-    font-size: 1.5rem;
-    color: #999;
+    font-size: 1.3rem;
+    color: #888;
 }
 
 .contact .row{
@@ -470,10 +632,14 @@ header #toggler{
 
 .contact .row .image{
     flex: 1 1 40rem;
+    position: relative;
 }
 
 .contact .row .image img{
-    width: 100%;
+    width: 110%;
+    mix-blend-mode: multiply;
+    -webkit-mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 92%, transparent 100%);
 }
 
 .contact .row form .box{
@@ -496,90 +662,407 @@ header #toggler{
     resize: none;
 }
 
+.footer{
+    background: #ffe8f3;
+    padding: 3rem 9%;
+}
+
 .footer .box-container{
     display: flex;
-    flex-wrap: wrap;
-    gap:1.5rem;
+    flex-wrap: nowrap;
+    gap: 3rem;
+    justify-content: space-between;
 }
 
 .footer .box-container .box{
-    flex: 1 1 25rem;
+    flex: 1 1 22rem;
 }
 
 .footer .box-container .box h3{
-    color: #333;
-    font-size: 2.5rem;
-    padding:1rem 0;
+    color: var(--pink);
+    font-size: 2.2rem;
+    padding: 0 0 1rem 0;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.footer .box-container .box:first-child h3{
+    font-size: 1.8rem;
+    white-space: nowrap;
+}
+
+.footer .box-container .box:nth-child(2) h3{
+    font-size: 1.8rem;
+    white-space: nowrap;
+}
+
+.footer .box-container .box:nth-child(3) h3{
+    font-size: 1.8rem;
+    white-space: nowrap;
+}
+
+.footer .box-container .box:nth-child(4) h3{
+    font-size: 1.8rem;
+    white-space: nowrap;
 }
 
 .footer .box-container .box a{
     display: block;
-    color:#666;
-    font-size: 1.5rem;
-    padding:1rem 0;
+    color: #555;
+    font-size: 1.4rem;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
 }
 
 .footer .box-container .box a:hover{
-    color:var(--pink);
-    text-decoration: underline;
+    color: var(--pink);
+    padding-left: 0.5rem;
+    text-decoration: none;
 }
 
 .footer .box-container .box img{
     margin-top: 1rem;
+    max-width: 100%;
 }
 
 .footer .credit{
     text-align: center;
-    padding:1.5rem;
-    margin-top:1.5rem;
-    padding-top:2.5rem;
-    font-size: 2rem;
-    color: #333;
-    border-top: .1rem solid rgba(0,0,0,.1);
+    padding: 2rem 1rem 0;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    font-size: 1.6rem;
+    color: #555;
+    border-top: 0.2rem solid rgba(232, 67, 147, 0.2);
 }
 
 .footer .credit span{
-    color:var(--pink);
+    color: var(--pink);
+    font-weight: 600;
 }
 
-@media (max-width:991px){
+/* ===== RESPONSIVE DESIGN ===== */
 
+/* Large Tablets & Small Laptops */
+@media (max-width:991px){
     html{
         font-size: 55%;
     }
 
     header{
-        padding:2rem;
+        padding:2rem 3%;
+        gap: 1.5rem;
     }
 
     section{
-        padding: 2rem;
+        padding: 2rem 3%;
     }
 
     .home{
         background-position: left;
     }
-  
+
+    .home .content{
+        max-width: 55rem;
+    }
+
+    .heading{
+        font-size: 3.5rem;
+    }
 }
 
+/* Tablets & Mobile Landscape */
 @media (max-width:768px){
+    html{
+        font-size: 52%;
+    }
+
+    header{
+        padding: 1.5rem 5%;
+        gap: 1rem;
+    }
+
+    header .logo{
+        font-size: 2.4rem;
+    }
+
+    header .icons{
+        gap: 1.5rem;
+    }
+
+    header .icons a{
+        font-size: 1.8rem;
+    }
+
+    section{
+        padding: 2rem 5%;
+    }
+
+    .home .content{
+        max-width: 100%;
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+
     .home .content h3{
-        font-size: 5rem;
+        font-size: 4.5rem;
     }
 
     .home .content span{
+        font-size: 2rem;
+    }
+
+    .home .content p{
+        font-size: 1.5rem;
+        padding: 1.5rem 0;
+    }
+
+    .heading{
+        font-size: 3rem;
+    }
+
+    .about .row{
+        gap: 1rem;
+    }
+
+    .about .row .video-container h3{
+        font-size: 2.2rem;
+        padding: 0.8rem 1.5rem;
+    }
+
+    .about .row .content h3{
         font-size: 2.5rem;
+    }
+
+    .about .row .content p{
+        font-size: 1.4rem;
+        padding: 1rem 0;
+    }
+
+    .icons-container{
+        gap: 1.5rem;
+        padding: 3rem 5%;
+    }
+
+    .icons-container .icons{
+        flex: 1 1 100%;
+    }
+
+    .products .box-container{
+        gap: 2rem;
+    }
+
+    .products .box-container .box{
+        flex: 1 1 100%;
+    }
+
+    .review .box-container{
+        gap: 2rem;
+    }
+
+    .review .box-container .box{
+        flex: 1 1 100%;
+    }
+
+    .contact .row{
+        gap: 1rem;
+    }
+
+    .footer{
+        padding: 2rem 5%;
+    }
+
+    .footer .box-container{
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .footer .box-container .box{
+        flex: 1 1 40%;
     }
 }
 
+/* Mobile Portrait */
 @media (max-width:450px){
-
     html{
         font-size: 50%;
     }
 
+    header{
+        padding: 1.5rem 5%;
+        gap: 0.8rem;
+    }
+
+    header .logo{
+        font-size: 2rem;
+    }
+
+    .hamburger {
+        width: 2.8rem;
+        height: 2.8rem;
+    }
+
+    .hamburger span {
+        width: 2.2rem;
+    }
+
+    header .icons{
+        gap: 0.8rem;
+    }
+
+    header .icons a{
+        font-size: 1.6rem;
+    }
+
+    .home .content h3{
+        font-size: 3.5rem;
+        letter-spacing: -1px;
+    }
+
+    .home .content span{
+        font-size: 1.8rem;
+    }
+
+    .home .content p{
+        font-size: 1.4rem;
+    }
+
+    .btn{
+        padding: 1.2rem 3rem;
+        font-size: 1.4rem;
+    }
+
+    .heading{
+        font-size: 2.5rem;
+    }
+
+    .about .row .video-container video{
+        border: 1rem solid #fff;
+    }
+
+    .about .row .video-container h3{
+        font-size: 1.8rem;
+    }
+
+    .about .row .content h3{
+        font-size: 2rem;
+    }
+
+    .icons-container .icons{
+        padding: 1.5rem;
+    }
+
+    .icons-container .icons img{
+        height: 4rem;
+        margin-right: 1.5rem;
+    }
+
+    .icons-container .icons h3{
+        font-size: 1.4rem;
+    }
+
+    .icons-container .icons span{
+        font-size: 1.2rem;
+    }
+
+    .products .box-container .box .discount{
+        padding: 0.5rem 0.8rem;
+        font-size: 1.6rem;
+    }
+
+    .products .box-container .box .image img{
+        height: 20rem;
+    }
+
+    .products .box-container .box .content h3{
+        font-size: 2rem;
+    }
+
+    .products .box-container .box .content .price{
+        font-size: 2rem;
+    }
+
+    .review .box-container .box{
+        padding: 2rem 1.5rem;
+    }
+
+    .review .box-container .box .fa-quote-right{
+        font-size: 4rem;
+        bottom: 2rem;
+        right: 2rem;
+    }
+
+    .contact .row form{
+        padding: 1.5rem;
+    }
+
+    .contact .row form .box{
+        font-size: 1.5rem;
+    }
+
+    .footer{
+        padding: 2rem 3%;
+    }
+
+    .footer .box-container .box{
+        flex: 1 1 100%;
+    }
+
+    .footer .box-container .box h3{
+        font-size: 1.8rem;
+    }
+
+    .footer .credit{
+        font-size: 1.4rem;
+    }
 }
 
-.heading{
-    font-size: 3rem;
+/* Extra Small Devices */
+@media (max-width:350px){
+    html{
+        font-size: 45%;
+    }
+
+    header{
+        gap: 0.5rem;
+        padding: 1.2rem 4%;
+    }
+
+    header .logo{
+        font-size: 1.8rem;
+    }
+
+    .hamburger {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .hamburger span {
+        width: 2rem;
+        height: 0.25rem;
+    }
+
+    header .icons{
+        gap: 0.6rem;
+    }
+
+    header .icons a{
+        font-size: 1.5rem;
+    }
+
+    header .icons a:last-child{
+        margin-right: 0;
+    }
+
+    .home .content h3{
+        font-size: 3rem;
+    }
+
+    .heading{
+        font-size: 2.2rem;
+    }
+
+    .btn{
+        padding: 1rem 2.5rem;
+        font-size: 1.3rem;
+    }
 }
