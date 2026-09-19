@@ -222,6 +222,7 @@ header .icons a:hover{
     display: flex;
     align-items: center;
     min-height: 100vh;
+    min-height: 100svh;
     background:url(Resources/home.JPG) no-repeat;
     background-size: cover;
     background-position: center;
@@ -728,7 +729,7 @@ header .icons a:hover{
     }
 
     .home{
-        background-position: left;
+        background-position: 35% center;
     }
 
     .home .content{
@@ -940,6 +941,11 @@ header .icons a:hover{
 
     header .icons a{
         font-size: 1.6rem;
+    }
+
+    .home{
+        min-height: 100svh;
+        background-position: 42% center;
     }
 
     .home .content h3{
